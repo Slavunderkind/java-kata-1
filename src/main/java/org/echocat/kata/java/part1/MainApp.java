@@ -7,6 +7,12 @@ import java.util.Scanner;
 public class MainApp {
     public static void main(String[] args) {
         loadInitialData();
+        System.out.println("Here is a list of available actions:");
+        System.out.println("Enter 1 to print all Books and Magazines.");
+        System.out.println("Enter 2 to search by entered ISBN in all Books and Magazines.");
+        System.out.println("Enter 3 to search by entered author email in all Books and Magazines.");
+        System.out.println("Enter 4 to print all Books and Magazines sorted by title.");
+
         System.out.println("Enter an Action: ");
         Scanner scanner = new Scanner(System.in);
         String action = scanner.next();
