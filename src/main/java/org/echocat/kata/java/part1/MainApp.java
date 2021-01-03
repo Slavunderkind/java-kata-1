@@ -13,6 +13,7 @@ public class MainApp {
         loader.start("books");
         loader.start("magazines");
         loader.start("authors");
+        Paper.printAll();
         return "Okay!";
     }
 

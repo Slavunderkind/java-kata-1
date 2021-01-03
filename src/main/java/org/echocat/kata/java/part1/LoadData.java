@@ -23,7 +23,6 @@ public class LoadData {
 		try (BufferedReader br = Files.newBufferedReader(pathToFile,
                 StandardCharsets.UTF_8)) {
 			String line = br.readLine();
-
 			while (line != null) {
                 String[] attributes = line.split(";");
                 switch (fileName){
@@ -71,7 +70,7 @@ public class LoadData {
 		String[] emails = attributes[2].split(",");
         String description = attributes[3];
 
-		return new Paper(title, isbn, emails, description);
+		return new Book(title, isbn, emails, description);
 	}
 
 	private Paper loadMagazines(String[] attributes) {
@@ -87,6 +86,6 @@ public class LoadData {
 			publishedAt = null;
 		}
 
-		return new Paper(title, isbn, emails, publishedAt);
+		return new Magazine(title, isbn, emails, publishedAt);
 	}
 }

@@ -1,6 +1,5 @@
 package org.echocat.kata.java.part1;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,5 +23,11 @@ public class Paper {
         this.isbn = isbn;
         this.author_emails = author_emails;
         this.publishedAt = publishedAt;
+    }
+
+    public static void printAll(){
+        for (Paper p : allPapers) {
+            System.out.println(p);
+        }
     }
 }
