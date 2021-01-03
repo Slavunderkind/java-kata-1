@@ -22,6 +22,7 @@ public class LoadData {
 
 		try (BufferedReader br = Files.newBufferedReader(pathToFile,
                 StandardCharsets.UTF_8)) {
+			br.readLine();
 			String line = br.readLine();
 			while (line != null) {
                 String[] attributes = line.split(";");
