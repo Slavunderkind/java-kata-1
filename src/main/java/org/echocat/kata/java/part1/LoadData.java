@@ -6,7 +6,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class LoadData {
@@ -71,13 +74,18 @@ public class LoadData {
 		return new Paper(title, isbn, emails, description);
 	}
 
-	private Paper loadMagazines(String[] attributes){
+	private Paper loadMagazines(String[] attributes) {
 		String title = attributes[0];
 		String isbn = attributes[1];
 		String[] emails = attributes[2].split(",");
-//		DateFormat df2 = new SimpleDateFormat("DD.MM.YYYY");
-//        Date publishedAt = new Date(df2.parse(attributes[3]);
-		String publishedAt = attributes[3];
+
+		Date publishedAt = null;
+		try {
+			publishedAt = new SimpleDateFormat("dd.MM.yyyy").parse(attributes[3]);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			publishedAt = null;
+		}
 
 		return new Paper(title, isbn, emails, publishedAt);
 	}
