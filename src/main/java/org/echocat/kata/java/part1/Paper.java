@@ -1,5 +1,6 @@
 package org.echocat.kata.java.part1;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +29,22 @@ public class Paper {
     public static void printAll(){
         for (Paper p : allPapers) {
             System.out.println(p);
+        }
+    }
+
+    public static void findAllbyAuthorEmail(String email) {
+        for (Paper p : allPapers) {
+            if (email.contains(String.join(",", p.author_emails))) {
+                System.out.println(p);
+            }
+        }
+    }
+
+    public static void findAllByIsbn(String isbn) {
+         for (Paper p : allPapers) {
+             if (p.isbn == isbn) {
+                 System.out.println(p);
+             }
         }
     }
 }
