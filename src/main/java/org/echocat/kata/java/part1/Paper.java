@@ -3,6 +3,7 @@ package org.echocat.kata.java.part1;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Paper {
     public String title;
@@ -46,5 +47,14 @@ public class Paper {
                  System.out.println(p);
              }
         }
+    }
+
+    public static void printAllSortedByTitle() {
+        Stream<Paper> sorted = allPapers.stream().sorted((object1, object2) -> object1.title().compareTo(object2.title()));
+        System.out.println(sorted);
+    }
+
+    private String title() {
+        return this.title;
     }
 }

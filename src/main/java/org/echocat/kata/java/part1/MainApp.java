@@ -29,6 +29,9 @@ public class MainApp {
                 String email = scanner.next();
                 Paper.findAllbyAuthorEmail(email);
                 break;
+            case "4":
+                Paper.printAllSortedByTitle();
+                break;
         }
     }
 
