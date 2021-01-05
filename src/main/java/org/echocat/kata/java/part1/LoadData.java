@@ -43,6 +43,7 @@ public class LoadData {
             ioe.printStackTrace();
         }
 		if (fileName == "authors"){
+			new AuthorRepository(authors)
 			addAuthors(authors);
 		}else if(fileName == "books" || fileName == "magazines"){
 			addPapers(papers);
@@ -66,20 +67,20 @@ public class LoadData {
 	}
 
 	private Paper loadBooks(String[] attributes){
-		String title = attributes[0];
-		String isbn = attributes[1];
-		String[] emails = attributes[2].split(",");
-        String description = attributes[3];
+		var title = attributes[0];
+		var isbn = attributes[1];
+		var emails = List.of(attributes[2].split(","));
+        var description = attributes[3];
 
 		return new Book(title, isbn, emails, description);
 	}
 
 	private Paper loadMagazines(String[] attributes) {
-		String title = attributes[0];
-		String isbn = attributes[1];
-		String[] emails = attributes[2].split(",");
+		var title = attributes[0];
+		var isbn = attributes[1];
+		var emails = List.of(attributes[2].split(","));
 
-		Date publishedAt = null;
+		Date publishedAt;
 		try {
 			publishedAt = new SimpleDateFormat("dd.MM.yyyy").parse(attributes[3]);
 		} catch (ParseException e) {

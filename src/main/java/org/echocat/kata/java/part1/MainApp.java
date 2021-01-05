@@ -5,8 +5,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MainApp {
-    public static void main(String[] args) {
-        loadInitialData();
+
+    private final AuthorRepository authorRepository = AuthorRepository.load();
+    private final PaperRepository paperRepository = PaperRepository.load();
+
+    public void run() {
+        authorRepository.findBy("foo@bar.com")
+                .ifPresent(author -> System.out.println("Author: " + author));
         System.out.println("Here is a list of available actions:");
         System.out.println("Enter 1 to print all Books and Magazines.");
         System.out.println("Enter 2 to search by entered ISBN in all Books and Magazines.");
@@ -17,6 +22,13 @@ public class MainApp {
         Scanner scanner = new Scanner(System.in);
         String action = scanner.next();
         pickAnAction(action, scanner);
+
+    }
+
+    public static void main(String[] args) {
+        // loadInitialData(); TODO! should be done above ;-)
+        final var app = new MainApp();
+        app.run();
     }
 
     public static void pickAnAction(String action, Scanner scanner){
@@ -33,7 +45,7 @@ public class MainApp {
             case "3":
                 System.out.println("Enter author email: ");
                 String email = scanner.next();
-                Paper.findAllbyAuthorEmail(email);
+                Paper.findAllByAuthorEmail(email);
                 break;
             case "4":
                 Paper.printAllSortedByTitle();

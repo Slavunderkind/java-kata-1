@@ -12,4 +12,10 @@ public class MainAppUnitTest {
         assertThat(MainApp.getHelloWorldText(), is("Hello world!"));
     }
 
+    @Test
+    public void testHashCode() {
+        assertThat("abc1".hashCode(), is(2987023));
+        assertThat("abc2".hashCode(), is(2987024));
+    }
+
 }

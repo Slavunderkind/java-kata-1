@@ -1,60 +1,76 @@
 package org.echocat.kata.java.part1;
 
-import java.util.Arrays;
-import java.util.Date;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public class Paper {
-    public String title;
-    public String description;
-    public String isbn;
-    public String[] author_emails;
-    public Date publishedAt;
-    public static List<Paper> allPapers;
+	public final String title;
+	public final String isbn;
+	public final List<String> authorEmails;
+	public static List<Paper> allPapers;
 
-    public Paper(String title, String isbn, String[] author_emails, String description) {
-        this.title = title;
-        this.isbn = isbn;
-        this.author_emails = author_emails;
-        this.description = description;
-    }
+	public Paper(String title, String isbn, Collection<String> authorEmails) {
+		this.title = title;
+		this.isbn = isbn;
+		this.authorEmails = List.copyOf(authorEmails);
+	}
 
-    public Paper(String title, String isbn, String[] author_emails, Date publishedAt) {
-        this.title = title;
-        this.isbn = isbn;
-        this.author_emails = author_emails;
-        this.publishedAt = publishedAt;
-    }
+	public static void printAll() {
+		for (Paper p : allPapers) {
+			System.out.println(p);
+		}
+	}
 
-    public static void printAll(){
-        for (Paper p : allPapers) {
-            System.out.println(p);
-        }
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Paper)) return false;
+		Paper paper = (Paper) o;
+		return isbn.equals(paper.isbn);
+	}
 
-    public static void findAllbyAuthorEmail(String email) {
-        for (Paper p : allPapers) {
-            if (email.contains(String.join(",", p.author_emails))) {
-                System.out.println(p);
-            }
-        }
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(isbn);
+	}
 
-    public static void findAllByIsbn(String isbn) {
-         for (Paper p : allPapers) {
-             if (p.isbn == isbn) {
-                 System.out.println(p);
-             }
-        }
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public static void printAllSortedByTitle() {
-        Stream<Paper> sorted = allPapers.stream().sorted((object1, object2) -> object1.title().compareTo(object2.title()));
-        System.out.println(sorted);
-    }
+	public String getIsbn() {
+		return isbn;
+	}
 
-    private String title() {
-        return this.title;
-    }
+	public List<String> getAuthorEmails() {
+		return authorEmails;
+	}
+
+	public static void findAllByAuthorEmail(String email) {
+		for (Paper p : allPapers) {
+			if (email.contains(String.join(",", p.authorEmails))) {
+				System.out.println(p);
+			}
+		}
+	}
+
+	public static void findAllByIsbn(String isbn) {
+		for (Paper p : allPapers) {
+			if (p.isbn.equals(isbn)) {
+				System.out.println(p);
+			}
+		}
+	}
+
+	public static void printAllSortedByTitle() {
+		Stream<Paper> sorted = allPapers.stream().sorted(Comparator.comparing(Paper::title));
+		System.out.println(sorted);
+	}
+
+	private String title() {
+		return this.title;
+	}
 }
