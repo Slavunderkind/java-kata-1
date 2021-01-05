@@ -13,11 +13,11 @@ import java.util.Date;
 import java.util.List;
 
 public class LoadData {
-	private final String csvDirectory = "src/main/resources/org/echocat/kata/java/part1/data/";
 	List<Paper> papers = new ArrayList<>();
 	List<Author> authors = new ArrayList<>();
 
 	public void start(String fileName){
+		var csvDirectory = "src/main/resources/org/echocat/kata/java/part1/data/";
 		Path pathToFile = Paths.get(csvDirectory + fileName + ".csv");
 
 		try (BufferedReader br = Files.newBufferedReader(pathToFile,
@@ -26,26 +26,21 @@ public class LoadData {
 			String line = br.readLine();
 			while (line != null) {
                 String[] attributes = line.split(";");
-                switch (fileName){
-					case "books":
-						papers.add(loadBooks(attributes));
-						break;
-					case "magazines":
-						papers.add(loadMagazines(attributes));
-						break;
-					case "authors":
-						authors.add(loadAuthors(attributes));
-						break;
+				switch (fileName) {
+					case "books" -> papers.add(loadBooks(attributes));
+					case "magazines" -> papers.add(loadMagazines(attributes));
+					case "authors" -> authors.add(loadAuthors(attributes));
+					default -> throw new IllegalStateException("Unexpected value: " + fileName);
 				}
                 line = br.readLine();
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
-		if (fileName == "authors"){
-			new AuthorRepository(authors)
+		if (fileName.equals("authors")){
+			new AuthorRepository(authors);
 			addAuthors(authors);
-		}else if(fileName == "books" || fileName == "magazines"){
+		}else if(fileName.equals("books") || fileName.equals("magazines")){
 			addPapers(papers);
 		}
 	}
